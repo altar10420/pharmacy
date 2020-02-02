@@ -2,33 +2,64 @@ package pl.altar.pharmacy.controller.dto;
 
 import pl.altar.pharmacy.domain.Client;
 
-import javax.persistence.*;
+import java.time.LocalDate;
 
-@Entity
-@Table(name = "client")
 public class ClientDTO {
 
-    @Id
-    @GeneratedValue
     private Long id;
 
-    @Column
     private String name;
 
-    @Column
     private String surname;
 
-    @Column
     private Integer yearOfBirth;
 
-    public ClientDTO(Long id, String name, String surname, Integer yearOfBirth) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.yearOfBirth = yearOfBirth;
+    private Integer age;
+
+    public ClientDTO() {
     }
 
     public ClientDTO(Client client) {
         this.id = client.getId();
+        this.name = client.getName();
+        this.surname = client.getSurname();
+        this.yearOfBirth = client.getYearOfBirth();
+        this.age = LocalDate.now().getYear() - client.getYearOfBirth();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public Integer getYearOfBirth() {
+        return yearOfBirth;
+    }
+
+    public void setYearOfBirth(Integer yearOfBirth) {
+        this.yearOfBirth = yearOfBirth;
+    }
+
+    public Integer getAge() {
+        return age;
     }
 }
