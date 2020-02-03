@@ -1,6 +1,7 @@
 package pl.altar.pharmacy.domain;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -20,6 +21,9 @@ public class Client {
 
     @Column
     private Integer yearOfBirth;
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Bill> bills;
 
     public Client() {
     }
