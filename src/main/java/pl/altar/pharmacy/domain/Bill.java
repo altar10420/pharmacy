@@ -3,6 +3,7 @@ package pl.altar.pharmacy.domain;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -17,12 +18,13 @@ public class Bill {
     @Column(nullable = false)
     private LocalDateTime dateTime;
 
-    @Column
     private BigDecimal price;
 
     @ManyToOne()
     @JoinColumn(name = "client_id")
     private Client client;
+
+    private List<Product> products;
 
     public Bill() {
     }
@@ -33,11 +35,16 @@ public class Bill {
         this.client = client;
     }
 
-    public Bill(Long id, LocalDateTime dateTime, BigDecimal price, Client client) {
+    public Bill(Long id,
+                LocalDateTime dateTime,
+                BigDecimal price,
+                Client client,
+                List<Product> products) {
         this.id = id;
         this.dateTime = dateTime;
         this.price = price;
         this.client = client;
+        this.products = products;
     }
 
     public Long getId() {
@@ -68,6 +75,14 @@ public class Bill {
         this.client = client;
     }
 
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -88,6 +103,7 @@ public class Bill {
                 .add("dateTime=" + dateTime)
                 .add("price=" + price)
                 .add("client=" + client)
+                .add("products=" + products)
                 .toString();
     }
 }

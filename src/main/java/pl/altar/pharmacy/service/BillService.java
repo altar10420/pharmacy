@@ -10,4 +10,6 @@ public interface BillService {
 
     Bill getBill(Long billId);
 
+    Long addProduct(Long billId, Long productId);
+
 }
