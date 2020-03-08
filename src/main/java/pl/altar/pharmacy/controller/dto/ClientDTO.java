@@ -9,13 +9,9 @@ import java.time.LocalDate;
 public class ClientDTO {
 
     private Long id;
-
     private String name;
-
     private String surname;
-
     private Integer yearOfBirth;
-
     private Integer age;
 
     public ClientDTO() {

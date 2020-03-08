@@ -10,6 +10,9 @@ import pl.altar.pharmacy.repository.BillRepository;
 import pl.altar.pharmacy.repository.ClientRepository;
 import pl.altar.pharmacy.repository.ProductRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 public class BillServiceImpl implements BillService {
@@ -42,11 +45,22 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public Bill getBill(Long billId) {
-
         return billRepository.getById(billId);
     }
 
     @Override
+    public List<Bill> getAllBills() {
+
+        List<Bill> billList = new ArrayList<>();
+
+        for (Bill bill : billRepository.findAll()) {
+            billList.add(bill);
+        }
+        return billList;
+    }
+
+    @Override
+    @Transactional
     public Long addProduct(Long billId, Long productId) {
 
         Bill bill = billRepository.getById(billId);
@@ -54,6 +68,8 @@ public class BillServiceImpl implements BillService {
         Product product = productRepository.getById(productId);
 
         bill.getProducts().add(product);
+
+        billRepository.save(bill);
 
         return bill.getId();
     }

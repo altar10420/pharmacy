@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/client")
+@RequestMapping(ClientController.BASE_URL)
 public class ClientController {
+
+    public static final String BASE_URL = "/api/clients";
 
     private final ClientService clientService;
 
@@ -22,14 +24,18 @@ public class ClientController {
 
     @GetMapping(path = "/{id}")
     public ClientDTO getClient(@PathVariable("id") Long id) {
-
         return new ClientDTO(clientService.getClient(id));
     }
 
     @PostMapping
     public Long createClient(@RequestBody ClientDTO clientDTO) {
 
-        return clientService.createClient(clientDTO.getName(), clientDTO.getSurname(), clientDTO.getYearOfBirth());
+        Long clientId = clientService.createClient(
+                clientDTO.getName(),
+                clientDTO.getSurname(),
+                clientDTO.getYearOfBirth());
+
+        return clientId;
     }
 
     @PutMapping(path = "/{id}")
@@ -47,7 +53,6 @@ public class ClientController {
 
     @DeleteMapping(path = "/{id}")
     public Long removeClient(@PathVariable("id") Long id) {
-
         return clientService.removeClient(id);
     }
 
