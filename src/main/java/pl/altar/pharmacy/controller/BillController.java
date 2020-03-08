@@ -5,7 +5,6 @@ import pl.altar.pharmacy.controller.dto.BillDTO;
 import pl.altar.pharmacy.domain.Bill;
 import pl.altar.pharmacy.service.BillService;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +18,11 @@ public class BillController {
 
     public BillController(BillService billService) {
         this.billService = billService;
+    }
+
+    @GetMapping(path = "/{id}")
+    public BillDTO billDTO(@PathVariable("id") Long id) {
+        return new BillDTO(billService.getBill(id));
     }
 
     @GetMapping(path = "/getAll")

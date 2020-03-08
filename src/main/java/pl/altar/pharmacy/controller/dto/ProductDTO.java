@@ -2,6 +2,7 @@ package pl.altar.pharmacy.controller.dto;
 
 import lombok.Data;
 import pl.altar.pharmacy.domain.Product;
+import pl.altar.pharmacy.domain.ProductCategory;
 
 import java.math.BigDecimal;
 
@@ -12,6 +13,7 @@ public class ProductDTO {
     private String name;
     private Boolean isAvailable;
     private BigDecimal price;
+    private ProductCategory productCategory;
 
     public ProductDTO() {
     }
@@ -21,5 +23,6 @@ public class ProductDTO {
         this.name = product.getName();
         this.isAvailable = product.getIsAvailable();
         this.price = product.getPrice();
+        this.productCategory = product.getProductCategory();
     }
 }

@@ -3,6 +3,7 @@ package pl.altar.pharmacy.service;
 import org.springframework.stereotype.Service;
 import pl.altar.pharmacy.controller.dto.ProductDTO;
 import pl.altar.pharmacy.domain.Product;
+import pl.altar.pharmacy.domain.ProductCategory;
 import pl.altar.pharmacy.repository.ProductRepository;
 
 import java.math.BigDecimal;
@@ -24,6 +25,20 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getProductByCategory(ProductCategory productCategory) {
+
+        List<Product> productList = new ArrayList<>();
+
+        for (Product product : productRepository.findAll()) {
+            if (product.getProductCategory().equals(productCategory)) {
+                productList.add(product);
+            }
+        }
+
+        return productList;
+    }
+
+    @Override
     public List<Product> getAllProducts() {
 
         List<Product> productList = new ArrayList<>();
@@ -36,9 +51,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Long createProduct(String name, Boolean isAvailable, BigDecimal price) {
+    public Long createProduct(String name, Boolean isAvailable, BigDecimal price, ProductCategory productCategory) {
 
-        Product product = new Product(name, isAvailable, price);
+        Product product = new Product(name, isAvailable, price, productCategory);
         productRepository.save(product);
         return product.getId();
     }
